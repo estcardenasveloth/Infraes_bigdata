@@ -34,6 +34,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: generación informe prueba json
-          commit_user_name: Andres Callejas [GitHub Actions]
-          commit_user_email: andres.callejas@iudigital.edu.co
-          commit_author: Andres Callejas <andres.callejas@iudigital.edu.co>
+          commit_user_name: estcardenasveloth [GitHub Actions]
+          commit_user_email: julio.cardenas@est.iudigital.edu.co
+          commit_author: Julio Cardenas <julio.cardenas@est.iudigital.edu.co>
