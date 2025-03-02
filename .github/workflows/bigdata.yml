@@ -33,7 +33,7 @@ jobs:
       - name: 🚀 Ejecutar script principal
         run: |
           venv\Scripts\activate
-          python script.py
+          python ingestion.py
 
       - name: 🔄 Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
