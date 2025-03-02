@@ -41,17 +41,17 @@ if response.status_code == 200:
         # Guardar en Excel
         try:
             df_api.to_excel(xlsx_file, index=False)
-            print(f"✅ Datos guardados en Excel: {os.path.abspath(xlsx_file)}")
+            print(f"[INFO] Datos guardados en Excel: {os.path.abspath(xlsx_file)}")
         except Exception as e:
-            print(f"❌ Error al guardar en Excel: {e}")
+            print(f"[ERROR] No se pudo guardar en Excel: {e}")
 
         # Guardar en SQLite
         try:
             conn = sqlite3.connect(db_file)
             df_api.to_sql("covid_data", conn, if_exists="replace", index=False)
-            print(f"✅ Datos almacenados en SQLite: {os.path.abspath(db_file)}")
+            print(f"[INFO] Datos almacenados en SQLite: {os.path.abspath(db_file)}")
         except Exception as e:
-            print(f"❌ Error al guardar en SQLite: {e}")
+            print(f"[ERROR] No se pudo guardar en SQLite: {e}")
         finally:
             conn.close()
 
@@ -73,24 +73,25 @@ if response.status_code == 200:
 
         # Generar el reporte de auditoría
         with open(audit_file, "w", encoding="utf-8") as f:
-            f.write("📊 Reporte de Auditoría de Datos COVID-19\n")
+            f.write("Reporte de Auditoría de Datos COVID-19\n")
             f.write("="*50 + "\n")
-            f.write(f"🔹 Registros obtenidos de la API: {num_registros_api}\n")
-            f.write(f"🔹 Registros almacenados en SQLite: {num_registros_db}\n")
-            f.write("\n✅ Integridad de los datos: ")
+            f.write(f"Registros obtenidos de la API: {num_registros_api}\n")
+            f.write(f"Registros almacenados en SQLite: {num_registros_db}\n")
+            f.write("\nIntegridad de los datos: ")
             if num_registros_api == num_registros_db and diferencias.empty:
                 f.write("Los datos coinciden perfectamente.\n")
             else:
                 f.write("Se encontraron diferencias en los registros.\n")
-                f.write("\n🔍 Diferencias detectadas:\n")
+                f.write("\nDiferencias detectadas:\n")
                 f.write(str(diferencias) + "\n")
 
-        print(f"📄 Reporte de auditoría generado en: {os.path.abspath(audit_file)}")
+        print(f"[INFO] Reporte de auditoría generado en: {os.path.abspath(audit_file)}")
 
     else:
-        print("⚠️ No se encontraron datos en la API.")
+        print("[WARNING] No se encontraron datos en la API.")
 
 else:
-    print(f"❌ Error {response.status_code}: No se pudo obtener los datos")
+    print(f"[ERROR] No se pudo obtener los datos. Código de estado: {response.status_code}")
+
 
 
