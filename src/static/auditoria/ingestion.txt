@@ -1,0 +1,6 @@
+📊 Reporte de Auditoría de Datos COVID-19
+==================================================
+🔹 Registros obtenidos de la API: 4016
+🔹 Registros almacenados en SQLite: 4016
+
+✅ Integridad de los datos: Los datos coinciden perfectamente.

@@ -1,1 +1,1 @@
-# bigdata20251_actividad1
+# Actividad 1 infraestructura para BIG DATA

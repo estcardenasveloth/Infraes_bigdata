@@ -1,0 +1,44 @@
+name: ingesta_actividad1
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.4'
+
+      - name: 🏗️ Crear y activar entorno virtual
+        run: |
+          python -m venv venv
+          venv\Scripts\activate
+          python -m pip install --upgrade pip
+
+      - name: 📦 Instalar dependencias
+        run: |
+          venv\Scripts\activate
+          pip install -e . || pip install -r requirements.txt  # Usa setup.py o requirements.txt
+
+      - name: 🚀 Ejecutar script principal
+        run: |
+          venv\Scripts\activate
+          python script.py
+
+      - name: 🔄 Commit y Push de cambios
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: generación informe prueba json
+          commit_user_name: estcardenasveloth [GitHub Actions]
+          commit_user_email: julio.cardenas@est.iudigital.edu.co
+          commit_author: Julio Cardenas <julio.cardenas@est.iudigital.edu.co>
