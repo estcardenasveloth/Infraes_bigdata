@@ -1,4 +1,4 @@
-name: ingesta_actividad1
+name: ingesta_limpieza_actividad2
 
 on:
   push:
@@ -40,11 +40,16 @@ jobs:
           venv\Scripts\activate
           python cleaning.py  # Ejecuta el script de limpieza después del script de ingestión
 
-      - name: 7. Hacer pull para sincronizar con la rama remota
+      - name: 7. Commit de cambios no preparados
+        run: |
+          git add .
+          git commit -m "Cambios no preparados antes de pull"
+
+      - name: 8. Hacer pull para sincronizar con la rama remota
         run: |
           git pull origin main --rebase  # Sincroniza la rama local con la remota
 
-      - name: 8. Commit y Push de cambios
+      - name: 9. Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: limpieza y procesamiento de datos
