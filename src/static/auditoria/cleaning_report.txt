@@ -1,0 +1,12 @@
+Reporte de Auditoría de Limpieza de Datos
+==================================================
+Registros antes de la limpieza: 4016
+Registros después de la limpieza: 3925
+Registros eliminados por valores NULL en 'Lat' o 'Long_': 91
+
+Operaciones realizadas:
+- Eliminación de duplicados
+- Manejo de valores nulos en columnas clave (Lat, Long_, Confirmed, etc.)
+- Conversión de tipos de datos (entero, flotante, fecha, texto)
+- Reemplazo de valores nulos con -9999 en columnas numéricas
+- Eliminación de registros con valores NULL en 'Lat' o 'Long_'
