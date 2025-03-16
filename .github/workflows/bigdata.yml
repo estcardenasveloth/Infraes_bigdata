@@ -40,16 +40,21 @@ jobs:
           venv\Scripts\activate
           python cleaning.py  # Ejecuta el script de limpieza después del script de ingestión
 
-      - name: 7. Commit de cambios no preparados
+      - name: 7. Configurar identidad de Git
         run: |
-          git add .
-          git commit -m "Cambios no preparados antes de pull"
+            git config --global user.name "estcardenasveloth"
+            git config --global user.email "julio.cardenas@est.iudigital.edu.co"
 
-      - name: 8. Hacer pull para sincronizar con la rama remota
+      - name: 8. Commit de cambios no preparados
+        run: |
+              git add .
+              git commit -m "Cambios no preparados antes de pull"      
+  
+      - name: 9. Hacer pull para sincronizar con la rama remota
         run: |
           git pull origin main --rebase  # Sincroniza la rama local con la remota
 
-      - name: 9. Commit y Push de cambios
+      - name: 10. Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: limpieza y procesamiento de datos
