@@ -41,9 +41,12 @@ Una vez que los datos han sido almacenados, el **script de limpieza (`cleaning.p
 
 Puedes ejecutar el script de limpieza ejecutando el siguiente comando:
 
-```bash
+\```bash
 python cleaning.py
+\```
 
+
+---
 
 ## Workflow Automatizado con GitHub Actions
 
