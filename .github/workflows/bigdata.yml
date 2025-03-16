@@ -11,34 +11,39 @@ jobs:
       contents: write
 
     steps:
-      - name: 📥 Checkout del repositorio
+      - name: 1. Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: ⚙️ Configurar Python
+      - name: 2. Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12.4'
 
-      - name: 🏗️ Crear y activar entorno virtual
+      - name: 3. Crear y activar entorno virtual
         run: |
           python -m venv venv
           venv\Scripts\activate
           python -m pip install --upgrade pip
 
-      - name: 📦 Instalar dependencias
+      - name: 4. Instalar dependencias
         run: |
           venv\Scripts\activate
           pip install -e . || pip install -r requirements.txt  # Usa setup.py o requirements.txt
 
-      - name: 🚀 Ejecutar script principal
+      - name: 5. Ejecutar script principal (ingestion.py)
         run: |
           venv\Scripts\activate
           python ingestion.py
 
-      - name: 🔄 Commit y Push de cambios
+      - name: 6. Ejecutar script de limpieza (cleaning.py)
+        run: |
+          venv\Scripts\activate
+          python cleaning.py  # Ejecuta el script de limpieza después del script de ingestión
+
+      - name: 7. Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: generación informe prueba json
+          commit_message: limpieza y procesamiento de datos
           commit_user_name: estcardenasveloth [GitHub Actions]
           commit_user_email: julio.cardenas@est.iudigital.edu.co
           commit_author: Julio Cardenas <julio.cardenas@est.iudigital.edu.co>

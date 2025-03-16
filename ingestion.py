@@ -56,9 +56,13 @@ if response.status_code == 200:
             conn.close()
 
         # Leer los datos almacenados en la base de datos
-        conn = sqlite3.connect(db_file)
-        df_db = pd.read_sql_query("SELECT * FROM covid_data", conn)
-        conn.close()
+        try:
+            conn = sqlite3.connect(db_file)
+            df_db = pd.read_sql_query("SELECT * FROM covid_data", conn)
+            conn.close()
+        except Exception as e:
+            print(f"[ERROR] No se pudo leer desde la base de datos: {e}")
+            df_db = pd.DataFrame()  # Inicializar un DataFrame vacío en caso de error
 
         # Comparar registros (convertir tipos para evitar errores)
         num_registros_api = len(df_api)
@@ -92,6 +96,4 @@ if response.status_code == 200:
 
 else:
     print(f"[ERROR] No se pudo obtener los datos. Código de estado: {response.status_code}")
-
-
 
