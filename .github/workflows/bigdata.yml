@@ -45,16 +45,23 @@ jobs:
             git config --global user.name "estcardenasveloth"
             git config --global user.email "julio.cardenas@est.iudigital.edu.co"
 
-      - name: 8. Commit de cambios no preparados
+      - name: 8. Asegurar que los archivos generados estén listos para el commit
         run: |
-              git add .
-              git commit -m "Cambios no preparados antes de pull"      
-  
-      - name: 9. Hacer pull para sincronizar con la rama remota
+          # Asegurarse de que los archivos estén generados y listos para ser comiteados
+          git add src/static/csv/cleaned_data.csv
+          git add src/static/db/ingestion.db
+          git add src/static/auditoria/cleaning_report.txt
+          git add src/static/auditoria/ingestion.txt
+
+      - name: 9. Commit de los archivos generados
+        run: |
+          git commit -m "Archivos generados: cleaned_data.csv, ingestion.db, cleaned_report.txt, ingestion.txt"
+
+      - name: 10. Hacer pull para sincronizar con la rama remota
         run: |
           git pull origin main --rebase  # Sincroniza la rama local con la remota
 
-      - name: 10. Commit y Push de cambios
+      - name: 11. Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: limpieza y procesamiento de datos
