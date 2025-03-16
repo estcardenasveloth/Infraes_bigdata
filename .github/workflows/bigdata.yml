@@ -24,7 +24,9 @@ jobs:
       
       - name: paso 1 - Crear y activar entorno virtual
         run:  python -m venv venv
-              venv\Scripts\activate
+              
+      - name: activar entorno virtual  
+        run : venv\Scripts\activate
           
       - name: paso 2 - actualizar pip
         run:  python -m pip install --upgrade pip
