@@ -11,50 +11,68 @@ jobs:
       contents: write
 
     steps:
+      # 1. Descargar el código del repositorio
       - name: 1. Checkout del repositorio
         uses: actions/checkout@v4
 
+      # 2. Configurar Python
       - name: 2. Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12.4'
 
+      # 3. Crear y activar entorno virtual
       - name: 3. Crear y activar entorno virtual
         run: |
           python -m venv venv
           venv\Scripts\activate
           python -m pip install --upgrade pip
 
+      # 4. Instalar dependencias
       - name: 4. Instalar dependencias
         run: |
           venv\Scripts\activate
           pip install -e . || pip install -r requirements.txt  # Usa setup.py o requirements.txt
 
+      # 5. Ejecutar el script de ingestión (ingestion.py)
       - name: 5. Ejecutar script principal (ingestion.py)
         run: |
           venv\Scripts\activate
-          python ingestion.py
+          python ingestion.py  # Ejecuta el script de ingestión
 
+      # 6. Ejecutar el script de limpieza (cleaning.py)
       - name: 6. Ejecutar script de limpieza (cleaning.py)
         run: |
           venv\Scripts\activate
           python cleaning.py  # Ejecuta el script de limpieza después del script de ingestión
 
+      # 7. Configurar identidad de Git
       - name: 7. Configurar identidad de Git
         run: |
             git config --global user.name "estcardenasveloth"
             git config --global user.email "julio.cardenas@est.iudigital.edu.co"
 
-      - name: 8. Asegurarse de que todos los cambios estén en el área de preparación
+      # 8. Agregar los archivos generados al área de preparación
+      - name: 8. Asegurarse de que los archivos generados estén listos para el commit
         run: |
-          git add .
+          # Agregar los archivos generados a la zona de preparación
+          git add src/static/csv/cleaned_data.csv
+          git add src/static/db/ingestion.db
+          git add src/static/auditoria/cleaning_report.txt
+          git add src/static/auditoria/ingestion.txt
+
+      # 9. Hacer un commit de los archivos generados
+      - name: 9. Commit de los archivos generados
+        run: |
           git commit -m "Añadiendo archivos generados: cleaned_data.csv, ingestion.db, cleaning_report.txt, ingestion.txt"
 
-      - name: 9. Hacer pull para sincronizar con la rama remota
+      # 10. Hacer pull para sincronizar con la rama remota
+      - name: 10. Hacer pull para sincronizar con la rama remota
         run: |
           git pull origin main --rebase  # Sincroniza la rama local con la remota
 
-      - name: 10. Commit y Push de cambios
+      # 11. Commit y Push de cambios
+      - name: 11. Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: limpieza y procesamiento de datos
