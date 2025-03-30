@@ -8,5 +8,5 @@ Operaciones realizadas:
 - Eliminación de duplicados
 - Manejo de valores nulos en columnas clave (Lat, Long_, Confirmed, etc.)
 - Conversión de tipos de datos (entero, flotante, fecha, texto)
-- Reemplazo de comas, espacios y asteriscos por guiones en columnas de ubicación
+- Reemplazo de valores nulos con -9999 en columnas numéricas
 - Eliminación de registros con valores NULL en 'Lat' o 'Long_'
