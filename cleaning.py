@@ -27,6 +27,11 @@ text_columns = ["Admin2", "Province_State", "Combined_Key"]
 for col in text_columns:
     df[col] = df[col].replace('', np.nan)
 
+# Normalizar caracteres en columnas específicas
+columns_to_clean = ["Admin2", "Province_State", "Country_Region"]
+for col in columns_to_clean:
+    df[col] = df[col].astype(str).str.replace(r"[ ,*]", "-", regex=True)
+
 # Convertir las columnas Lat y Long_ a NaN si tienen valores vacíos o no válidos
 df["Lat"] = pd.to_numeric(df["Lat"], errors="coerce")
 df["Long_"] = pd.to_numeric(df["Long_"], errors="coerce")
@@ -37,7 +42,6 @@ num_eliminados_lat_long = df[df["Lat"].isnull() | df["Long_"].isnull()].shape[0]
 # Eliminar filas con valores NaN en las columnas 'Lat' y 'Long_'
 df = df.dropna(subset=["Lat", "Long_"])
 
-# Manejo de valores nulos para las columnas numéricas:
 # Eliminar filas con valores nulos en las columnas numéricas relevantes
 columns_to_check = ["Confirmed", "Deaths", "Recovered", "Active", "Lat", "Long_", "Incident_Rate", "Case_Fatality_Ratio"]
 df = df.dropna(subset=columns_to_check)
@@ -61,7 +65,7 @@ with open(audit_file, "w", encoding="utf-8") as f:
     f.write("- Eliminación de duplicados\n")
     f.write("- Manejo de valores nulos en columnas clave (Lat, Long_, Confirmed, etc.)\n")
     f.write("- Conversión de tipos de datos (entero, flotante, fecha, texto)\n")
-    f.write("- Reemplazo de valores nulos con -9999 en columnas numéricas\n")
+    f.write("- Reemplazo de comas, espacios y asteriscos por guiones en columnas de ubicación\n")
     f.write("- Eliminación de registros con valores NULL en 'Lat' o 'Long_'\n")
 
 # Cerrar la conexión a la base de datos

@@ -40,6 +40,8 @@ jobs:
       - name: paso 5 -  Ejecutar script de limpieza (cleaning.py)
         run: python cleaning.py  
       
+      - name: paso 6 -  Ejecutar script de limpieza (add_code_iso.py)
+        run: python add_code_iso.py 
       
       - name: Commit y Push de cambios
         uses: stefanzweifel/git-auto-commit-action@v5
