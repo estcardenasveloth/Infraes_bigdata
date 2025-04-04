@@ -8,12 +8,12 @@ Nombres de columnas añadidas:
 Detalles del merge con pob_ipc.csv:
 - Registros antes del merge: 3925
 - Registros después del merge: 3925
-- Columnas añadidas por el merge: code_iso_x, code_iso_y, income_per_capita_est, population_est, income_group
+- Columnas añadidas por el merge: income_per_capita_est, code_iso_x, population_est, code_iso_y, income_group
 - No hubo pérdida de registros.
 
 Resumen de valores nulos en columnas nuevas del merge:
-- code_iso_x: 0 valores nulos
-- code_iso_y: 0 valores nulos
 - income_per_capita_est: 0 valores nulos
+- code_iso_x: 0 valores nulos
 - population_est: 0 valores nulos
+- code_iso_y: 0 valores nulos
 - income_group: 0 valores nulos
